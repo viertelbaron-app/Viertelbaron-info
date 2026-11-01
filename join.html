@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Viertelbaron · Einladung</title>
+<meta property="og:title" content="Spiel mit mir Viertelbaron!">
+<meta property="og:description" content="Tippe auf den Link, um der Partie beizutreten.">
+<style>
+:root{--bg:#f2c100;--ink:#14202c;--card:#fffdf4;--btn:#14202c;--btnink:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#1d2630;--ink:#f3f1e8;--card:#2a3541;--btn:#f2c100;--btnink:#14202c}}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--ink);font-family:system-ui,sans-serif;padding:16px;box-sizing:border-box}
+.c{background:var(--card);border-radius:20px;padding:28px 22px;max-width:420px;width:100%;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+h1{font-size:24px;margin:0 0 6px}p{line-height:1.5;margin:10px 0}
+.code{font:700 32px/1 ui-monospace,monospace;letter-spacing:6px;margin:14px 0;padding:12px;border:2px dashed currentColor;border-radius:12px}
+a.b{display:block;background:var(--btn);color:var(--btnink);text-decoration:none;font-weight:700;padding:14px;border-radius:12px;margin:10px 0}
+a.s{color:inherit;font-size:14px}small{opacity:.75}
+</style></head>
+<body><div class="c">
+<h1 id="h">Einladung zu Viertelbaron</h1>
+<p id="t">Öffne die App, um mitzuspielen.</p>
+<div class="code" id="code" hidden></div>
+<a class="b" id="open" href="viertelbaron://">In der App öffnen</a>
+<a class="b" id="store" href="https://apps.apple.com/app/id6825051134">App im App Store laden</a>
+<p><small id="n">Noch keine App? Erst laden, dann diesen Link erneut antippen oder den Code unter „Online“ eingeben.</small></p>
+</div>
+<script>
+(function(){
+var q=new URLSearchParams(location.search),c=(q.get('c')||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6),f=(q.get('f')||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6);
+var lang=(navigator.language||'de').slice(0,2);
+var T={de:['Einladung zu Viertelbaron','Du wurdest zu einer Partie eingeladen. Spielcode:','Du wurdest als Freund eingeladen. Freundescode:','In der App öffnen','App im App Store laden','Noch keine App? Erst laden, dann diesen Link erneut antippen oder den Code unter „Online“ eingeben.'],
+en:['Block Baron invitation','You have been invited to a game. Game code:','You have been invited as a friend. Friend code:','Open in the app','Get the app on the App Store','No app yet? Get it first, then tap this link again or enter the code under “Online”.'],
+es:['Invitación a Barón del Barrio','Te han invitado a una partida. Código:','Te han invitado como amigo. Código de amigo:','Abrir en la app','Descargar en el App Store','¿Aún no tienes la app? Descárgala, vuelve a tocar este enlace o introduce el código en “Online”.'],
+fr:['Invitation à Baron du Quartier','Tu es invité à une partie. Code :',"Tu es invité comme ami. Code ami :","Ouvrir dans l'app","Télécharger sur l'App Store","Pas encore l'app ? Télécharge-la, puis touche à nouveau ce lien ou saisis le code dans « En ligne »."],
+ja:['街のバロンへの招待','ゲームに招待されました。ゲームコード：','フレンドとして招待されました。フレンドコード：','アプリで開く','App Storeで入手','まだアプリがない場合は、入手してからこのリンクをもう一度タップするか、「オンライン」でコードを入力してください。']};
+var L=T[lang]||T.en,$=function(i){return document.getElementById(i)};
+$('h').textContent=L[0];$('open').textContent=L[3];$('store').textContent=L[4];$('n').textContent=L[5];document.documentElement.lang=lang;
+var url='viertelbaron://';
+if(c){url='viertelbaron://join?c='+c;$('t').textContent=L[1];$('code').textContent=c;$('code').hidden=false}
+else if(f){url='viertelbaron://join?f='+f;$('t').textContent=L[2];$('code').textContent=f;$('code').hidden=false}
+$('open').href=url;
+if(/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)&&(c||f))setTimeout(function(){location.href=url},300);
+})();
+</script>
+</body></html>
